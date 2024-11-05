@@ -1,17 +1,7 @@
-import { readdirSync, readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync } from "fs";
 import matter from "gray-matter";
 import path from "path";
-
-interface Metadata {
-    title: string;
-    date: Date;
-    category: string;
-}
-
-interface ArticleInfo {
-    slug: string;
-    metadata: Metadata;
-}
+import { format } from "date-fns";
 
 export function getArticles(): ArticleInfo[] {
     const articlesDirectory = path.resolve(process.cwd(), 'articles');
@@ -33,4 +23,23 @@ export function getArticles(): ArticleInfo[] {
     });
 
     return articles;
+}
+
+export function getArticleInfo(articleId: number): ArticleInfo | null {
+    const filePath = path.resolve('articles', `${articleId}.md`);
+
+    if (!existsSync(filePath)) {
+        return null;
+    }
+
+    const fileContent: string = readFileSync(filePath, 'utf8');
+
+    const parsedMatter = matter(fileContent)
+
+    const metadata = parsedMatter.data;
+    if (metadata.date instanceof Date) {
+        metadata.date = format(metadata.date, 'yyyy-MM-dd');
+    }
+
+    return { slug: articleId.toString(), metadata: metadata as Metadata };
 }

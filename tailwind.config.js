@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import flowbitePlugin from 'flowbite/plugin'
+import typographyPlugin from '@tailwindcss/typography'
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'],
@@ -28,6 +29,6 @@ export default {
     '2xl': '1536px',
     // => @media (min-width: 1536px) { ... }
   },
-  plugins: [flowbitePlugin],
+  plugins: [flowbitePlugin, typographyPlugin],
 }
 

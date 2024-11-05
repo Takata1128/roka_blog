@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { format } from 'date-fns';
 
-	export let article;
+	export let article: ArticleInfo;
 </script>
 
 <a

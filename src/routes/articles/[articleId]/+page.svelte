@@ -1,4 +1,6 @@
 <script lang="ts">
+	import NextLink from '$lib/components/NextLink.svelte';
+	import PrevLink from '$lib/components/PrevLink.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -16,6 +18,23 @@
 	</div>
 </div>
 
-<div class="markdown-body">
-	{@html data.htmlContent}
+<div class="container mx-auto w-1/2">
+	<div class="article-contents">
+		<div class="markdown-body prose prose-xl !max-w-none">
+			{@html data.htmlContent}
+		</div>
+	</div>
+	<div class="side-bar"></div>
+	<div class="flex justify-between mt-10">
+		<div>
+			{#if data.prevArticleInfo}
+				<PrevLink article={data.prevArticleInfo} />
+			{/if}
+		</div>
+		<div>
+			{#if data.nextArticleInfo}
+				<NextLink article={data.nextArticleInfo} />
+			{/if}
+		</div>
+	</div>
 </div>
